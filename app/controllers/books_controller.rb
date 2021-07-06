@@ -19,12 +19,14 @@ class BooksController < ApplicationController
 
   def index
     @book=Book.new
-    books=Book.includes(:favorited_users).sort{|a,b|b.favorited_users.size<=>a.favorited_users.size}
-    @books=Kaminari.paginate_array(books).page(params[:page]).per(25)
     # @books=Book.page(params[:page]).reverse_order
+     from  = Time.current.at_beginning_of_day
+     to    = (from + 6.day).at_end_of_day
+     books = Book.includes(:favorited_users).where(created_at: from...to).sort {|a,b| b.favorited_users.size <=> a.favorited_users.size}
+     @books = Kaminari.paginate_array(books).page(params[:page]).per(25)
+  end
     
 
-  end
 
   def show
     @books=Book.find(params[:id])
@@ -61,6 +63,8 @@ class BooksController < ApplicationController
     redirect_to books_path
     end
   end
+  
+
 
   private
   def book_params

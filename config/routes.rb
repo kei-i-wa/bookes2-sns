@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     resource:favorites,only:[:create,:destroy]
     resources:book_comments,only:[:create,:destroy]
   end
+  
+
+# roomのcrearte and show 
+# messageはcreate
 
   resources :users, only: [:show,:edit,:update,:index]do
       resource :relationships, only: [:create, :destroy]

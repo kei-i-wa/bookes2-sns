@@ -50,10 +50,13 @@
 
   <!--コメントの数-->
   <td>コメント数：<%= @books.book_comments.count %></td>
+  <!--閲覧数-->
+  <td><i class="fas fa-eye"></i><%=  @books.impressionist_count(:filter => :session_hash) %></td>
    <% if @books.user == current_user %>
   <td class="botton"><%= link_to"Edit",edit_book_path(@books),class:'btn btn-success'%></td>
   <td class="botton"><%= link_to"Destroy",book_path(@books), method: :delete,class:'btn btn-danger'%></td>
   <% end %>
+  
   </tr>
   </tbody>
   </table>

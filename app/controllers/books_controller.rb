@@ -1,6 +1,8 @@
 class BooksController < ApplicationController
+  impressionist :actions=> [:show]
   before_action :authenticate_user!
-  before_action :ensure_correct_user, only:[:edit]
+  before_action :ensure_correct_user, only:
+  
 
   def new
     @book=Book.new
@@ -32,6 +34,7 @@ class BooksController < ApplicationController
 
   def show
     @books=Book.find(params[:id])
+    impressionist(@books, nil, unique: [:session_hash.to_s])
     @book=Book.new
     @book_comment = BookComment.new
     @book_comments = @book.book_comments.order(created_at: :desc)

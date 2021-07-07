@@ -55,6 +55,8 @@
 
 
 <td>コメント数：<%= book.book_comments.count %><% end %></td>
+<!--閲覧数-->
+<td><i class="fas fa-eye"></i><%= book.impressionist_count(:filter => :session_hash) %></td>
 </tr>
 
 

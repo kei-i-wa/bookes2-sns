@@ -34,18 +34,36 @@
    <div class="button" style="margin:10px 0;"><%= link_to 'フォローする', user_relationships_path(@user.id), method: :POST,class:"btn btn-success btn-block" %></div>
         <% end %>
       <% end %>
+      
 
 
 <%= link_to edit_user_path(@user),class:'btn btn-outline-secondary btn-block' do %><i class="fas fa-user-cog"></i><% end %>
+
+<% unless @user.id == current_user.id %>
+  <% if (current_user.following? @user) && (@user.following? current_user)  %>
+  <% if @isRoom == true %>
+    <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+  <% else %>
+    <%= form_for @room do |f| %>
+      <%= fields_for @entry do |e| %>
+        <%= e.hidden_field :user_id, value: @user.id %>
+      <% end %>
+      <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
+    <% end %>
+  <% end %>
+  <% end %>
+<% end %>
+ 
+ 
  <!--% if @user == current_user %>-->
- <!--%= link_to edit_user_path(current_user),class:'btn btn-outline-secondary btn-block' do %>-->
- <!--<i class="fas fa-user-cog"></i>-->
- <!--% end %>-->
- <!--% else %>-->
- <!-- %= link_to user_path(current_user),class:'btn btn-outline-secondary btn-block' do %>-->
- <!--<i class="fas fa-user-cog"></i>-->
- <!--% end %>-->
- <!--% end %>-->
+ <!-- %= link_to edit_user_path(current_user),class:'btn btn-outline-secondary btn-block' do %>-->
+ <!-- i class="fas fa-user-cog"></i>-->
+ <!-- % end %>-->
+ <!-- % else %>-->
+ <!--  %= link_to user_path(current_user),class:'btn btn-outline-secondary btn-block' do %>-->
+ <!-- <i class="fas fa-user-cog"></i>-->
+ <!-- % end %>-->
+ <!-- % end %>-->
 
 
 

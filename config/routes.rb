@@ -26,5 +26,7 @@ Rails.application.routes.draw do
 
   get'home/about' =>'homes#about'
   get '/search' => 'search#search'
-  # get'users' =>'users#index'
+  # get'users' =>'users#index
+  resources :messages, :only => [:create]
+  resources :rooms, :only => [:create, :show]
   end
